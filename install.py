@@ -24,6 +24,7 @@ def usage():
 
 ALL_BSP = {
     "arm-eabi": [
+        "stm32f3",
         "stm32f4",
         "nucleo_f401re",
         "stm32f429disco",

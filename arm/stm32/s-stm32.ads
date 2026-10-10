@@ -194,4 +194,12 @@ package System.STM32 is
    DEV_ID_STM32F46xxx : constant := 16#434#; --  STM32F469xx/479xx
    DEV_ID_STM32F74xxx : constant := 16#449#; --  STM32F74xxx/75xxx
 
+   -- It's a lot but well defined per 33.6.1
+   DEV_ID_STM32F303x6 : constant := 16#438#;
+   DEV_ID_STM32F303x8 : constant := 16#438#;
+   DEV_ID_STM32F303xB : constant := 16#422#;
+   DEV_ID_STM32F303xC : constant := 16#422#;
+   DEV_ID_STM32F303xD : constant := 16#446#;
+   DEV_ID_STM32F303xE : constant := 16#446#;
+
 end System.STM32;

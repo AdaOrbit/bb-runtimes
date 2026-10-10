@@ -163,6 +163,8 @@ def build_configs(target):
         t = Sam(target)
     elif target.startswith("smartfusion2"):
         t = SmartFusion2()
+    elif target.startswith("stm32f3"):
+        t = Stm32(target)
     elif target.startswith("stm32f0"):
         t = Stm32F0(target)
     elif target.startswith("stm32l"):

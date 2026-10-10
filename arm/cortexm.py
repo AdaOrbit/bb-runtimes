@@ -897,6 +897,12 @@ class Stm32CommonArchSupport(ArchSupport):
 
 
 stm32_board_configuration = {
+    "stm32f3disco": {
+        "STM32_Main_Clock_Frequency": "168_000_000",
+        "STM32_HSE_Clock_Frequency": "8_000_000",
+        "STM32_FLASH_Latency": "5", # IDK. Per 10.5.5 it's (DATLAT + 2)
+        "PLLQ_Value": "7", # No fucking clue either...
+    },
     "stm32f4": {
         "STM32_Main_Clock_Frequency": "168_000_000",
         "STM32_HSE_Clock_Frequency": "8_000_000",
@@ -982,7 +988,7 @@ class Stm32(ArmV7MTarget):
 
     @property
     def cortex(self):
-        if self.mcu.startswith("stm32f4"):
+        if self.mcu.startswith("stm32f4") or self.mcu.startswith("stm32f3"):
             return "cortex-m4"
         elif self.mcu.startswith("stm32f7"):
             return "cortex-m7"
@@ -1011,6 +1017,8 @@ class Stm32(ArmV7MTarget):
 
     def __init__(self, board):
         self.board = board
+        if self.board in ["stm32f3", "stm32f303", "stm32f3disco"]: # I have no idea what I am doing
+            self.mcu = "stm32f303"
         if self.board in ["stm32f4", "feather_stm32f405"]:
             self.mcu = "stm32f40x"
         elif self.board in ["nucleo_f401re"]:
@@ -1051,6 +1059,9 @@ class Stm32(ArmV7MTarget):
         )
 
         self.add_gnat_source("arm/stm32/s-bbbopa.ads.tmpl")
+
+        if self.mcu in ["stm32f303"]:
+            self.add_gnat_source("arm/stm32/stm32f303/s-stm32.abd")
 
         if self.mcu in ["stm32f40x"]:
             self.add_gnat_source("arm/stm32/stm32f40x/s-stm32.adb")
